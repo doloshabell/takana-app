@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--PADDING-->
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_11">11dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_14">14dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_18">18dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_22">22dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_26">26dp</dimen>
+    <dimen name="padding_28">28dp</dimen>
+
+    <!--MARGIN-->
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_11">11dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+
+    <!--HEIGHT-->
+    <dimen name="height_2">2dp</dimen>
+    <dimen name="height_4">4dp</dimen>
+    <dimen name="height_6">6dp</dimen>
+    <dimen name="height_8">8dp</dimen>
+    <dimen name="height_10">10dp</dimen>
+    <dimen name="height_11">11dp</dimen>
+    <dimen name="height_12">12dp</dimen>
+    <dimen name="height_14">14dp</dimen>
+    <dimen name="height_16">16dp</dimen>
+    <dimen name="height_18">18dp</dimen>
+    <dimen name="height_20">20dp</dimen>
+    <dimen name="height_22">22dp</dimen>
+    <dimen name="height_24">24dp</dimen>
+    <dimen name="height_26">26dp</dimen>
+    <dimen name="height_28">28dp</dimen>
+    <dimen name="height_300">300dp</dimen>
+
+    <!--WIDTH-->
+    <dimen name="width_2">2dp</dimen>
+    <dimen name="width_4">4dp</dimen>
+    <dimen name="width_6">6dp</dimen>
+    <dimen name="width_8">8dp</dimen>
+    <dimen name="width_10">10dp</dimen>
+    <dimen name="width_11">11dp</dimen>
+    <dimen name="width_12">12dp</dimen>
+    <dimen name="width_14">14dp</dimen>
+    <dimen name="width_16">16dp</dimen>
+    <dimen name="width_18">18dp</dimen>
+    <dimen name="width_20">20dp</dimen>
+    <dimen name="width_22">22dp</dimen>
+    <dimen name="width_24">24dp</dimen>
+    <dimen name="width_26">26dp</dimen>
+    <dimen name="width_28">28dp</dimen>
+
+    <!--TEXTSIZE-->
+    <dimen name="textSize_2">2sp</dimen>
+    <dimen name="textSize_4">4sp</dimen>
+    <dimen name="textSize_6">6sp</dimen>
+    <dimen name="textSize_8">8sp</dimen>
+    <dimen name="textSize_10">10sp</dimen>
+    <dimen name="textSize_11">11sp</dimen>
+    <dimen name="textSize_12">12sp</dimen>
+    <dimen name="textSize_14">14sp</dimen>
+    <dimen name="textSize_16">16sp</dimen>
+    <dimen name="textSize_18">18sp</dimen>
+    <dimen name="textSize_20">20sp</dimen>
+    <dimen name="textSize_22">22sp</dimen>
+    <dimen name="textSize_24">24sp</dimen>
+    <dimen name="textSize_26">26sp</dimen>
+    <dimen name="textSize_28">28sp</dimen>
+
+</resources>
