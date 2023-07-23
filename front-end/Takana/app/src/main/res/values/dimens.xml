@@ -17,6 +17,7 @@
     <dimen name="padding_24">24dp</dimen>
     <dimen name="padding_26">26dp</dimen>
     <dimen name="padding_28">28dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
 
     <!--MARGIN-->
     <dimen name="margin_2">2dp</dimen>
@@ -34,6 +35,7 @@
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_26">26dp</dimen>
     <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
 
     <!--HEIGHT-->
     <dimen name="height_2">2dp</dimen>
@@ -51,6 +53,7 @@
     <dimen name="height_24">24dp</dimen>
     <dimen name="height_26">26dp</dimen>
     <dimen name="height_28">28dp</dimen>
+    <dimen name="height_32">32dp</dimen>
     <dimen name="height_300">300dp</dimen>
 
     <!--WIDTH-->
@@ -69,6 +72,7 @@
     <dimen name="width_24">24dp</dimen>
     <dimen name="width_26">26dp</dimen>
     <dimen name="width_28">28dp</dimen>
+    <dimen name="width_32">32dp</dimen>
 
     <!--TEXTSIZE-->
     <dimen name="textSize_2">2sp</dimen>
@@ -86,5 +90,6 @@
     <dimen name="textSize_24">24sp</dimen>
     <dimen name="textSize_26">26sp</dimen>
     <dimen name="textSize_28">28sp</dimen>
+    <dimen name="textSize_32">32sp</dimen>
 
 </resources>

@@ -1,5 +1,28 @@
 <resources>
+    //app
     <string name="app_name">Takana</string>
     <string name="app_title">Takana: Your Wise Expense</string>
     <string name="app_version">Version 1.0</string>
+
+    //login
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="silahkan_masuk_ya_jangan_lupa_lepas_alas_kaki">Silahkan masuk dulu ya,\njangan lupa lepas alas kaki</string>
+    <string name="username">Username</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="masuk">Masuk</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi?</string>
+    <string name="belum_punya_akun_ya">Belum punya akun, ya?</string>
+    <string name="daftar_disini_yuk">Daftar disini yuk!</string>
+
+    //register
+    <string name="buat_akun">Buat Akun!</string>
+    <string name="kita_buat_akun_dulu_ya_nkalo_buat_gudeg_bahannya_belum_dibeli">Kita buat akun dulu ya,\nkalo buat gudeg bahannya belum dibeli</string>
+    <string name="email">Email</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="domisili">Domisili</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="daftar">Daftar</string>
+    <string name="udah_punya_akun_ya">Udah punya akun, ya?</string>
+    <string name="login_disini_yuk">Login disini yuk!</string>
 </resources>
