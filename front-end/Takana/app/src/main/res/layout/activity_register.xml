@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".presentation.register.RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
+                android:background="@drawable/border_around"
+                android:elevation="@dimen/width_6"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_14"
+                android:paddingVertical="@dimen/padding_20">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_extrabold"
+                    android:gravity="center_horizontal"
+                    android:text="@string/buat_akun"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/textSize_22" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:fontFamily="@font/manrope_regular"
+                    android:gravity="center_horizontal"
+                    android:text="@string/kita_buat_akun_dulu_ya_nkalo_buat_gudeg_bahannya_belum_dibeli"
+                    android:textColor="@color/text_color" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_32"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10" />
+
+                <EditText
+                    android:id="@+id/et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/username"
+                    android:inputType="text|textNoSuggestions"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10" />
+
+                <EditText
+                    android:id="@+id/et_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/nama_lengkap"
+                    android:inputType="text|textCapWords"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/kata_sandi"
+                    android:inputType="textPassword"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10" />
+
+                <EditText
+                    android:id="@+id/et_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/nomor_telepon"
+                    android:inputType="phone"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10" />
+
+                <EditText
+                    android:id="@+id/et_domicile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/domisili"
+                    android:inputType="text|textCapWords"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10"
+                    android:visibility="gone" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/actv_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_edittext"
+                    android:hint="@string/jenis_kelamin"
+                    android:paddingVertical="@dimen/padding_12"
+                    android:paddingStart="@dimen/padding_10"
+                    android:visibility="gone" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_14"
+                    android:background="@drawable/border_button"
+                    android:text="@string/daftar"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/button_text"
+                    android:textSize="@dimen/textSize_16" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginVertical="@dimen/margin_32"
+                android:background="@drawable/border_around"
+                android:elevation="@dimen/width_6"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_14"
+                android:paddingVertical="@dimen/padding_10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_regular"
+                    android:gravity="center_horizontal"
+                    android:text="@string/udah_punya_akun_ya"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/textSize_12" />
+
+                <TextView
+                    android:id="@+id/btn_cta_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:fontFamily="@font/manrope_extrabold"
+                    android:gravity="center_horizontal"
+                    android:text="@string/login_disini_yuk"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/textSize_20" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
