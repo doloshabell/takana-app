@@ -1,15 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
+    android:paddingHorizontal="@dimen/padding_20"
     tools:context=".presentation.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile Fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_user_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@drawable/border_round"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/padding_16"
+                android:paddingVertical="@dimen/padding_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_user_img"
+                    android:layout_width="@dimen/width_56"
+                    android:layout_height="@dimen/height_56"
+                    android:background="@drawable/border_image_profile_blue"
+                    android:src="@drawable/users_1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_12"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_full_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/manrope_semibold"
+                        android:text="Habell Dolosha Purba"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/textSize_20" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/manrope_regular"
+                        android:text="@string/username_x"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/textSize_16" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_14"
+                android:background="@drawable/border_round"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_16"
+                android:paddingVertical="@dimen/padding_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_user_profile">
+
+                <TextView
+                    android:id="@+id/tv_edit_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:drawableEnd="@drawable/round_navigate_next_24"
+                    android:fontFamily="@font/manrope_regular"
+                    android:padding="@dimen/padding_10"
+                    android:text="@string/akun"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/textSize_16" />
+
+                <TextView
+                    android:id="@+id/tv_edit_privacy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:drawableEnd="@drawable/round_navigate_next_24"
+                    android:fontFamily="@font/manrope_regular"
+                    android:padding="@dimen/padding_10"
+                    android:text="@string/privasi"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/textSize_16" />
+
+                <TextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/round_navigate_next_24"
+                    android:fontFamily="@font/manrope_regular"
+                    android:padding="@dimen/padding_10"
+                    android:text="@string/keluar"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/textSize_16" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </FrameLayout>
