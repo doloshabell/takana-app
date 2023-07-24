@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/transactions"
+        android:icon="@drawable/outline_moving_24"
+        android:title="@string/transaksi" />
+
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/outline_account_balance_wallet_24"
+        android:title="@string/akun_uang" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/outline_person_outline_24"
+        android:title="@string/profil" />
+</menu>

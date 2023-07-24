@@ -1,8 +1,11 @@
 package com.example.takana.presentation.login
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.databinding.ActivityLoginBinding
 import com.example.takana.presentation.register.RegisterActivity
@@ -23,11 +26,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupContent() {
         binding.apply {
+            btnLogin.setOnClickListener {
+                intentTo(applicationContext, MainActivity())
+            }
+
             btnCtaRegister.setOnClickListener {
-                val intent = Intent(applicationContext, RegisterActivity::class.java)
-                startActivity(intent)
-                finish()
+                intentTo(applicationContext, RegisterActivity())
             }
         }
+    }
+
+    private fun intentTo(context: Context, activity: Activity) {
+        val intent = Intent(context, activity::class.java);
+        startActivity(intent)
+        finish()
     }
 }
