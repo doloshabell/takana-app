@@ -34,4 +34,10 @@
 
     <!--home-->
     <string name="halo_user">Halo, %1$s \nyuk bisa yuk ga boros &#128293;</string>
+
+    <!--profile-->
+    <string name="username_x">Username: %1$s</string>
+    <string name="akun">👤\t\tAkun</string>
+    <string name="privasi">🔑\t\tPrivasi</string>
+    <string name="keluar">👋\t\tKeluar</string>
 </resources>

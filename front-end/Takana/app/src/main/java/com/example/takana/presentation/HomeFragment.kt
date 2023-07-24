@@ -14,16 +14,6 @@ class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    private fun setupContent() {
-        binding.apply {
-            tvGreetUsers.text = getString(R.string.halo_user, "Dolossss")
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,4 +23,9 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun setupContent() {
+        binding.apply {
+            tvGreetUsers.text = getString(R.string.halo_user, "doloshab")
+        }
+    }
 }
