@@ -9,18 +9,27 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="@dimen/width_56"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_8"
+                android:translationZ="@dimen/width_8"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/ll_box_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
@@ -29,7 +38,10 @@
                 android:elevation="@dimen/width_6"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/padding_14"
-                android:paddingVertical="@dimen/padding_20">
+                android:paddingVertical="@dimen/padding_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -104,29 +116,6 @@
                     android:paddingVertical="@dimen/padding_12"
                     android:paddingStart="@dimen/padding_10" />
 
-                <EditText
-                    android:id="@+id/et_domicile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_14"
-                    android:background="@drawable/border_edittext"
-                    android:hint="@string/domisili"
-                    android:inputType="text|textCapWords"
-                    android:paddingVertical="@dimen/padding_12"
-                    android:paddingStart="@dimen/padding_10"
-                    android:visibility="gone" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/actv_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_14"
-                    android:background="@drawable/border_edittext"
-                    android:hint="@string/jenis_kelamin"
-                    android:paddingVertical="@dimen/padding_12"
-                    android:paddingStart="@dimen/padding_10"
-                    android:visibility="gone" />
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"
@@ -149,7 +138,11 @@
                 android:elevation="@dimen/width_6"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/padding_14"
-                android:paddingVertical="@dimen/padding_10">
+                android:paddingVertical="@dimen/padding_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_box_register">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -173,7 +166,7 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

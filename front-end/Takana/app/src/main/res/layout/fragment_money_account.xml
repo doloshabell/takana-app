@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".presentation.MoneyAccountFragment">
+    tools:context=".presentation.money_account.MoneyAccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Akun Uang Fragment" />
+        android:paddingHorizontal="@dimen/padding_20">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_title_page"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_32"
+                android:layout_marginBottom="@dimen/margin_12"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/manrope_bold"
+                    android:gravity="center_vertical"
+                    android:text="Akun Uang"
+                    android:textColor="@color/container_color"
+                    android:textSize="@dimen/textSize_22" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_change_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_button_white"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/padding_10"
+                    android:text="Buat Akun Uang"
+                    android:textAllCaps="false"
+                    android:textColor="@drawable/button_text_white"
+                    android:textSize="@dimen/textSize_16" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list_item_from_page_trx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                app:layout_constraintTop_toBottomOf="@+id/ll_title_page"
+                tools:listitem="@layout/item_list_transaction" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </FrameLayout>

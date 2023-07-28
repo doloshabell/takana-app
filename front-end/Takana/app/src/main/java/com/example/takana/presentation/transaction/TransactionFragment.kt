@@ -1,4 +1,4 @@
-package com.example.takana.presentation
+package com.example.takana.presentation.transaction
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

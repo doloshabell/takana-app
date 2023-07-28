@@ -5,14 +5,22 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import com.example.takana.MainActivity
 import com.example.takana.R
+import com.example.takana.data.model.response.BaseResponse
+import com.example.takana.data.model.response.LoginResponse
+import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.ActivityLoginBinding
 import com.example.takana.presentation.register.RegisterActivity
+import com.example.takana.service.JwtDecode
 
 class LoginActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
+    private val viewModel by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +30,20 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupContent()
+        viewModelLogin()
     }
 
     private fun setupContent() {
         binding.apply {
             btnLogin.setOnClickListener {
-                intentTo(applicationContext, MainActivity())
+                if (etUsername.text.isNullOrBlank()) {
+                    etUsername.error = getString(R.string.username_kosong)
+                } else if (etPassword.text.isNullOrBlank()) {
+                    etPassword.error = getString(R.string.password_kosong)
+                } else {
+                    showLoading()
+                    viewModel.logInUser(etUsername.text.toString(), etPassword.text.toString())
+                }
             }
 
             btnCtaRegister.setOnClickListener {
@@ -39,6 +55,57 @@ class LoginActivity : AppCompatActivity() {
     private fun intentTo(context: Context, activity: Activity) {
         val intent = Intent(context, activity::class.java);
         startActivity(intent)
-        finish()
+    }
+
+    private fun viewModelLogin() {
+        viewModel.logInResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processLogin(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    stopLoading()
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.pbLoading.visibility = View.VISIBLE
+    }
+
+    private fun stopLoading() {
+        binding.pbLoading.visibility = View.GONE
+    }
+
+    private fun processLogin(data: LoginResponse?) {
+        showToast("Success:" + data?.message)
+        stopLoading()
+        if (!data?.data?.AccessToken.isNullOrEmpty()) {
+            data?.data?.AccessToken?.let {
+                SessionManager.saveAuthToken(this, it)
+                val decode = JwtDecode().decodeJwt(it)
+            }
+        }
+        intentTo(applicationContext, MainActivity())
+    }
+
+    fun processError(msg: String?) {
+        showToast("Error:" + msg)
+        stopLoading()
+    }
+
+    fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
