@@ -34,7 +34,7 @@
                 android:id="@+id/ll_title_page"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_32"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                     android:textSize="@dimen/textSize_22" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_change_avatar"
+                    android:id="@+id/btn_add_account_money"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_button_white"

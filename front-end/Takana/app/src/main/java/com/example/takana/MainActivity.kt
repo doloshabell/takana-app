@@ -10,6 +10,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.takana.data.model.UserLoginData
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.ActivityMainBinding
@@ -45,7 +48,8 @@ class MainActivity : AppCompatActivity() {
             intent.addFlags(FLAG_ACTIVITY_NO_HISTORY)
             startActivity(intent)
             finish()
-        }
+        } else
+            JwtDecode().decodeJwt(this, token.toString())
     }
 
     private fun setupContent() {

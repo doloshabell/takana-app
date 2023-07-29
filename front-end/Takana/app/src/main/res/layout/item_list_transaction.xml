@@ -26,7 +26,7 @@
         android:fontFamily="@font/manrope_regular"
         android:text="Account"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize_16"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_item_category" />
 
@@ -48,7 +48,7 @@
         android:fontFamily="@font/manrope_regular"
         android:text="25 Jul"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/textSize_16"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_item_amount" />
 

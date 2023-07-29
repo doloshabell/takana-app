@@ -1,6 +1,5 @@
 package com.example.takana.presentation.money_account
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,16 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.takana.MainActivity
-import com.example.takana.R
 import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.DataAccount
 import com.example.takana.data.model.response.GetAllAccountResponse
-import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.FragmentMoneyAccountBinding
@@ -30,7 +25,6 @@ class MoneyAccountFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MoneyAccountListAdapter
     private val viewModel by viewModels<MoneyAccountViewModel>()
-
     private val accountList: ArrayList<DataAccount> = ArrayList()
 
     override fun onCreateView(
@@ -38,10 +32,6 @@ class MoneyAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMoneyAccountBinding.inflate(layoutInflater, container, false)
-        recyclerView = binding.rvListAccountMoney
-        adapter = MoneyAccountListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return binding.root
     }
 
@@ -54,12 +44,13 @@ class MoneyAccountFragment : Fragment() {
     }
 
     private fun setupContent() {
-        if (SPAllAccount.getAccountList(requireContext()).isNotEmpty()) {
-            accountList.addAll(SPAllAccount.getAccountList(requireContext()))
-            adapter.setData(accountList)
-        } else {
-            viewModel.getAllAccountMoney(token)
-            viewModelGetAllAccount()
+        binding.apply {
+            btnAddAccountMoney.setOnClickListener {
+                val intentToAddAccountMoney =
+                    Intent(requireContext(), MoneyAccountAddEditActivity::class.java)
+                intentToAddAccountMoney.putExtra("TODO_MONEY_ACCOUNT", "Add")
+                startActivity(intentToAddAccountMoney)
+            }
         }
     }
 
@@ -95,8 +86,15 @@ class MoneyAccountFragment : Fragment() {
 
     private fun processGetAllAccount(data: GetAllAccountResponse?) {
         showToast("Success:" + data?.message)
-        Log.d("TAG", "processGetAllAccount: ${data?.data}")
         SPAllAccount.saveAllAccount(requireContext(), data?.data!!)
+        recyclerView = binding.rvListAccountMoney
+        adapter = MoneyAccountListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        if (SPAllAccount.getAccountList(requireContext()).isNotEmpty()) {
+            accountList.addAll(SPAllAccount.getAccountList(requireContext()))
+            adapter.setData(accountList)
+        }
         stopLoading()
     }
 

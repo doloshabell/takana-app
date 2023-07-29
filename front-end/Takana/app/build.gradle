@@ -72,7 +72,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-common:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-common:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
 
     //size dp/sp

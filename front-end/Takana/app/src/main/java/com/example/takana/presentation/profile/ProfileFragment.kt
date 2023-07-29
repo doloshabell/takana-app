@@ -12,7 +12,9 @@ import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.LoginResponse
+import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
+import com.example.takana.data.util.UserToken
 import com.example.takana.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -37,9 +39,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupContent() {
+        val user: UserToken.User? = UserToken.getObjectFromSharedPreferences(requireContext())
         binding.apply {
-            tvUsername.text = getString(R.string.username_x, "doloshab")
-
+            tvFullName.text = getString(R.string.one_string, user?.name)
+            tvUsername.text = getString(R.string.username_x, user?.username)
             tvEditProfile.setOnClickListener {
                 val intent = Intent(requireContext(), EditProfileActivity::class.java)
                 startActivity(intent)
@@ -84,7 +87,9 @@ class ProfileFragment : Fragment() {
     private fun processLogOut(data: LoginResponse?) {
         showToast("Success:" + data?.message)
         stopLoading()
-        SessionManager.clearData(requireContext())
+        SessionManager.clearDataSession(requireContext())
+        SPAllAccount.clearDataAccount(requireContext())
+        UserToken.clearDataUserToken(requireContext())
         val intent = Intent(requireContext(), MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
