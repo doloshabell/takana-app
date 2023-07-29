@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isLogin(context: Context, activity: Activity) {
         val token = SessionManager.getToken(context)
+        Log.d("TAG", "isLogin: $token")
         if (token.isNullOrBlank()) {
             val intent = Intent(context, activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

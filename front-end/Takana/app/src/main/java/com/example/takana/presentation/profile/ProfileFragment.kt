@@ -26,10 +26,14 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupContent()
         token = SessionManager.getToken(requireContext()).toString()
         viewModelLogOut()
-        return binding.root
     }
 
     private fun setupContent() {

@@ -4,16 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.takana.data.model.UserRepository
+import com.example.takana.data.repository.AllRepository
 import com.example.takana.data.model.request.RegisterRequest
 import com.example.takana.data.model.response.BaseResponse
-import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.model.response.RegisterResponse
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
-    val userRepository = UserRepository()
+    val allRepository = AllRepository()
     val registerResult: MutableLiveData<BaseResponse<RegisterResponse>> = MutableLiveData()
 
     fun registerUser(
@@ -33,8 +32,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     phoneNumber = phoneNumber,
                     username = userName
                 )
-                val response = userRepository.registerUser(registerRequest = registerRequest)
-                if (response?.code() == 200) {
+                val response = allRepository.registerUser(registerRequest = registerRequest)
+                if (response?.body()?.status!!) {
                     registerResult.value = BaseResponse.Success(response.body())
                 } else {
                     registerResult.value = BaseResponse.Error(response?.message())

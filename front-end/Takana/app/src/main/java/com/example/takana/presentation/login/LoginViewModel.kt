@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.takana.data.model.UserRepository
+import com.example.takana.data.repository.AllRepository
 import com.example.takana.data.model.request.LoginRequest
 import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.LoginResponse
@@ -13,7 +13,7 @@ import java.lang.Exception
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    val userRepository = UserRepository()
+    val allRepository = AllRepository()
     val logInResult: MutableLiveData<BaseResponse<LoginResponse>> = MutableLiveData()
 
     fun logInUser(userName: String, password: String) {
@@ -24,7 +24,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     username = userName,
                     password = password
                 )
-                val response = userRepository.logInUser(loginRequest = loginRequest)
+                val response = allRepository.logInUser(loginRequest = loginRequest)
                 if (response?.body()?.status!!) {
                     logInResult.value = BaseResponse.Success(response.body())
                 } else {
