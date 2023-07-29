@@ -22,6 +22,7 @@ import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.FragmentMoneyAccountBinding
+import kotlinx.android.synthetic.main.activity_main.bnv_menu
 
 class MoneyAccountFragment : Fragment() {
 
@@ -103,12 +104,12 @@ class MoneyAccountFragment : Fragment() {
         stopLoading()
     }
 
-    fun processError(msg: String?) {
+    private fun processError(msg: String?) {
         showToast(msg.toString())
         stopLoading()
     }
 
-    fun showToast(msg: String) {
+    private fun showToast(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 

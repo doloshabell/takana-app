@@ -4,13 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.takana.data.model.UserLoginData
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.ActivityMainBinding
 import com.example.takana.presentation.home.HomeFragment
@@ -18,9 +14,6 @@ import com.example.takana.presentation.money_account.MoneyAccountFragment
 import com.example.takana.presentation.profile.ProfileFragment
 import com.example.takana.presentation.transaction.TransactionFragment
 import com.example.takana.presentation.login.LoginActivity
-import com.example.takana.service.JwtDecode
-import com.google.gson.Gson
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun isLogin(context: Context, activity: Activity) {
         val token = SessionManager.getToken(context)
-        Log.d("TAG", "isLogin: $token")
         if (token.isNullOrBlank()) {
             val intent = Intent(context, activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -63,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fl_activity, fragment)
