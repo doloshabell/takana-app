@@ -106,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun processLogin(data: RegisterResponse?) {
-        showToast("Success:" + data?.message)
+        showToast(data?.message.toString())
         stopLoading()
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
@@ -114,7 +114,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun processError(msg: String?) {
-        showToast("Error:" + msg)
+        showToast(msg.toString())
         stopLoading()
     }
 

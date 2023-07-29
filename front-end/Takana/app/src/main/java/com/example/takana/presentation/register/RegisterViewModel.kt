@@ -36,7 +36,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 if (response?.body()?.status!!) {
                     registerResult.value = BaseResponse.Success(response.body())
                 } else {
-                    registerResult.value = BaseResponse.Error(response?.message())
+                    registerResult.value = BaseResponse.Error(response.body()?.message)
                 }
             } catch (ex: Exception) {
                 registerResult.value = BaseResponse.Error(ex.message)

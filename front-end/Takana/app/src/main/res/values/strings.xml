@@ -43,4 +43,6 @@
     <string name="username_kosong">Diisi dulu yuk Usernamenya</string>
     <string name="password_kosong">Diisi dulu yuk Passwordnya</string>
     <string name="add_or_edit_transaction">%1$s Transaction</string>
+    <string name="add_or_edit_money_account">%1$s Akun Uang</string>
+    <string name="one_string">%1$s</string>
 </resources>

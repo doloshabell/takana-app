@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/manrope_semibold"
-                        android:text="Habell Dolosha Purba"
+                        android:text="@string/one_string"
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/textSize_20" />
 

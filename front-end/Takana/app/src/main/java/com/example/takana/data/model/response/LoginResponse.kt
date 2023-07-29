@@ -5,7 +5,7 @@ import java.io.Serializable
 data class LoginResponse(
     var status: Boolean,
     var message: String,
-    var errors: List<String>,
+    var errors: Any,
     var data: LoginTokenModel
 ) : Serializable
 

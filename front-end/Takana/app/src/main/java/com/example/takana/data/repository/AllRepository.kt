@@ -3,7 +3,9 @@ package com.example.takana.data.repository
 import com.example.takana.data.model.methods.AuthApi
 import com.example.takana.data.model.methods.MainApi
 import com.example.takana.data.model.request.LoginRequest
+import com.example.takana.data.model.request.MoneyAccountAddRequest
 import com.example.takana.data.model.request.RegisterRequest
+import com.example.takana.data.model.response.AddResponse
 import com.example.takana.data.model.response.GetAllAccountResponse
 import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.model.response.RegisterResponse
@@ -24,5 +26,9 @@ class AllRepository {
 
     suspend fun getAllAccount(token: String): Response<GetAllAccountResponse>? {
         return MainApi.getApi()?.getAllAccount(token)
+    }
+
+    suspend fun addAccountMoney(token: String, moneyAccountAddRequest: MoneyAccountAddRequest): Response<AddResponse>?? {
+        return MainApi.getApi()?.addAccount(token, moneyAccountAddRequest)
     }
 }

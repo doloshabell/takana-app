@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_change_avatar"
+                android:id="@+id/btn_add_account_money"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
@@ -52,7 +52,7 @@
                 android:paddingVertical="@dimen/_12sdp"
                 android:paddingStart="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_change_avatar" />
+                app:layout_constraintTop_toBottomOf="@id/btn_add_account_money" />
 
             <EditText
                 android:id="@+id/et_username"

@@ -10,15 +10,14 @@ import com.google.gson.JsonParser
 
 object SPAllAccount {
 
-    const val ALL_ACCOUNT = "ALL_ACCOUNT"
+    private const val ALL_ACCOUNT = "ALL_ACCOUNT"
 
     fun saveAllAccount(context: Context, allAccount: ArrayList<DataAccount>) {
-        saveAllAccountToSharedPreferences(context, ALL_ACCOUNT, allAccount)
+        saveAllAccountToSharedPreferences(context, allAccount)
     }
 
-    fun saveAllAccountToSharedPreferences(
+    private fun saveAllAccountToSharedPreferences(
         context: Context,
-        key: String,
         arrayList: ArrayList<DataAccount>
     ) {
         val prefs: SharedPreferences =
@@ -33,7 +32,7 @@ object SPAllAccount {
             jsonDataAccount.add(dataObject)
         }
 
-        editor.putString(key, jsonDataAccount.toString())
+        editor.putString(ALL_ACCOUNT, jsonDataAccount.toString())
         editor.apply()
     }
 
@@ -57,5 +56,12 @@ object SPAllAccount {
         return accountList
     }
 
+    fun clearDataAccount(context: Context) {
+        val editor =
+            context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+                .edit()
+        editor.clear()
+        editor.apply()
+    }
 
 }

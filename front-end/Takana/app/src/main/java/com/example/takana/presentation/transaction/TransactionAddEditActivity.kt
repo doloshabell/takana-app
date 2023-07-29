@@ -4,28 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.takana.R
-import com.example.takana.databinding.ActivityAddEditTransactionBinding
-import com.example.takana.databinding.ActivityEditProfileBinding
+import com.example.takana.databinding.ActivityTransactionAddEditBinding
 
 
-class AddEditTransactionActivity : AppCompatActivity() {
+class TransactionAddEditActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityAddEditTransactionBinding
+    lateinit var binding: ActivityTransactionAddEditBinding
     lateinit var getThisIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddEditTransactionBinding.inflate(layoutInflater)
+        binding = ActivityTransactionAddEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        getThisIntent = getIntent()
+        getThisIntent = intent
         setupContent()
     }
 
     private fun setupContent() {
         binding.apply {
-            tvTitle.text = getString(R.string.add_or_edit_transaction, getThisIntent.getStringExtra("TODO"))
+            tvTitle.text =
+                getString(R.string.add_or_edit_transaction, getThisIntent.getStringExtra("TODO_TRANSACTION"))
         }
     }
 }

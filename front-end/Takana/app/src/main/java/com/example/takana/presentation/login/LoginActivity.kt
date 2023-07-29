@@ -89,19 +89,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun processLogin(data: LoginResponse?) {
-        showToast("Success:" + data?.message)
+        showToast(data?.message.toString())
         stopLoading()
         if (!data?.data?.AccessToken.isNullOrEmpty()) {
             data?.data?.AccessToken?.let {
                 SessionManager.saveAuthToken(this, it)
-                val decode = JwtDecode().decodeJwt(it)
+                JwtDecode().decodeJwt(this, it)
             }
         }
         intentTo(applicationContext, MainActivity())
     }
 
     fun processError(msg: String?) {
-        showToast("Error:" + msg)
+        showToast(msg.toString())
         stopLoading()
     }
 

@@ -30,7 +30,6 @@ class MoneyAccountFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MoneyAccountListAdapter
     private val viewModel by viewModels<MoneyAccountViewModel>()
-
     private val accountList: ArrayList<DataAccount> = ArrayList()
 
     override fun onCreateView(
@@ -38,10 +37,6 @@ class MoneyAccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMoneyAccountBinding.inflate(layoutInflater, container, false)
-        recyclerView = binding.rvListAccountMoney
-        adapter = MoneyAccountListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return binding.root
     }
 
@@ -54,12 +49,13 @@ class MoneyAccountFragment : Fragment() {
     }
 
     private fun setupContent() {
-        if (SPAllAccount.getAccountList(requireContext()).isNotEmpty()) {
-            accountList.addAll(SPAllAccount.getAccountList(requireContext()))
-            adapter.setData(accountList)
-        } else {
-            viewModel.getAllAccountMoney(token)
-            viewModelGetAllAccount()
+        binding.apply {
+            btnAddAccountMoney.setOnClickListener {
+                val intentToAddAccountMoney =
+                    Intent(requireContext(), MoneyAccountAddEditActivity::class.java)
+                intentToAddAccountMoney.putExtra("TODO_MONEY_ACCOUNT", "Add")
+                startActivity(intentToAddAccountMoney)
+            }
         }
     }
 
@@ -94,14 +90,21 @@ class MoneyAccountFragment : Fragment() {
     }
 
     private fun processGetAllAccount(data: GetAllAccountResponse?) {
-        showToast("Success:" + data?.message)
-        Log.d("TAG", "processGetAllAccount: ${data?.data}")
+        showToast(data?.message.toString())
         SPAllAccount.saveAllAccount(requireContext(), data?.data!!)
+        recyclerView = binding.rvListAccountMoney
+        adapter = MoneyAccountListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        if (SPAllAccount.getAccountList(requireContext()).isNotEmpty()) {
+            accountList.addAll(SPAllAccount.getAccountList(requireContext()))
+            adapter.setData(accountList)
+        }
         stopLoading()
     }
 
     fun processError(msg: String?) {
-        showToast("Error:" + msg)
+        showToast(msg.toString())
         stopLoading()
     }
 

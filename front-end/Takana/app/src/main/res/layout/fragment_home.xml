@@ -91,7 +91,7 @@
                         android:textSize="@dimen/textSize_18" />
 
                     <TextView
-                        android:id="@+id/tv_edit_profile"
+                        android:id="@+id/tv_to_money_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/round_navigate_next_blue_24"
@@ -141,7 +141,7 @@
                         android:textSize="@dimen/textSize_22" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_change_avatar"
+                        android:id="@+id/btn_to_transaction"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@drawable/border_button_white"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     android:paddingHorizontal="@dimen/_20sdp"
-    tools:context=".presentation.transaction.AddEditTransactionActivity">
+    tools:context=".presentation.transaction.TransactionAddEditActivity">
 
     <TextView
         android:id="@+id/tv_title"
