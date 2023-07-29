@@ -22,12 +22,12 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun setupContent() {
         binding.apply {
-            setAutoComplete(binding.actvGender)
+            setAutoComplete(actvGender)
         }
     }
 
     private fun setAutoComplete(autoCompleteTextView: AutoCompleteTextView) {
-        val genders = resources.getStringArray(com.example.takana.R.array.gender_array)
+        val genders = resources.getStringArray(R.array.gender_array)
 
         val adapterGenders =
             ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, genders)

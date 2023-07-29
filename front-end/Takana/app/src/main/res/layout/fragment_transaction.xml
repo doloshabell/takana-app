@@ -38,7 +38,7 @@
                     android:textSize="@dimen/textSize_22" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_change_avatar"
+                    android:id="@+id/btn_add_transaction"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_button_white"
