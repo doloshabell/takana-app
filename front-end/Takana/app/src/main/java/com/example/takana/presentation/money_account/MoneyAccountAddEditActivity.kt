@@ -105,7 +105,7 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
     }
 
     private fun setSpinnerAccountType() {
-        val itemAccountType = resources.getStringArray(R.array.account_type)
+        val itemAccountType = resources.getStringArray(R.array.account_types)
         val adapterAccountType = object : ArrayAdapter<String>(
             applicationContext,
             android.R.layout.simple_spinner_item,

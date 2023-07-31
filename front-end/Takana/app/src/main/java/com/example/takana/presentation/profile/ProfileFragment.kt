@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.data.model.response.BaseResponse
+import com.example.takana.data.model.response.GetDetailProfileResponse
 import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
@@ -20,8 +21,9 @@ import com.example.takana.databinding.FragmentProfileBinding
 class ProfileFragment : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
-    private val viewModel by viewModels<LogoutViewModel>()
+    private val viewModel by viewModels<ProfileViewModel>()
     lateinit var token: String
+    lateinit var user: UserToken.User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +37,14 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupContent()
         token = SessionManager.getToken(requireContext()).toString()
-        viewModelLogOut()
+        user = UserToken.getObjectFromSharedPreferences(requireContext())!!
+        viewModel.getDetailProfile(token, user.userId!!.toLong())
+        viewModelGetDetailProfile()
     }
 
     private fun setupContent() {
         val user: UserToken.User? = UserToken.getObjectFromSharedPreferences(requireContext())
         binding.apply {
-            tvFullName.text = getString(R.string.one_string, user?.name)
-            tvUsername.text = getString(R.string.username_x, user?.username)
-
             tvEditProfile.setOnClickListener {
                 val intent = Intent(requireContext(), EditProfileActivity::class.java)
                 startActivity(intent)
@@ -51,6 +52,7 @@ class ProfileFragment : Fragment() {
 
             tvLogout.setOnClickListener {
                 viewModel.logOutUser(token)
+                viewModelLogOut()
             }
         }
     }
@@ -104,6 +106,37 @@ class ProfileFragment : Fragment() {
 
     fun showToast(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun viewModelGetDetailProfile() {
+        viewModel.getDetailProfileResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processGetDetail(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processGetDetail(data: GetDetailProfileResponse?) {
+        showToast(data?.message.toString())
+        stopLoading()
+        binding.apply {
+            tvFullName.text = getString(R.string.one_string, data?.data?.fullName)
+            tvUsername.text = getString(R.string.username_x, data?.data?.username)
+        }
     }
 
 }

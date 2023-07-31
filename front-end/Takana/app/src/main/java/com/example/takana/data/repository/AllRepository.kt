@@ -92,6 +92,7 @@ class AllRepository {
         return MainApi.getApi()?.deleteDataTransaction(token, transactionUpdateRequest)
     }
 
+    //profile
     suspend fun getDetailProfile(
         token: String,
         id: Long

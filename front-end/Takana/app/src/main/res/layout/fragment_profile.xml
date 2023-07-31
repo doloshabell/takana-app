@@ -60,7 +60,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/manrope_semibold"
-                        android:text="@string/one_string"
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/textSize_20" />
 
@@ -69,7 +68,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/manrope_regular"
-                        android:text="@string/username_x"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/textSize_16" />
 
