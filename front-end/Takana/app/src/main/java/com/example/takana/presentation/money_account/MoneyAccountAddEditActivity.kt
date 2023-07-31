@@ -3,6 +3,7 @@ package com.example.takana.presentation.money_account
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -19,6 +20,7 @@ import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.data.model.response.AddResponse
 import com.example.takana.data.model.response.BaseResponse
+import com.example.takana.data.model.response.GetDetailAccountResponse
 import com.example.takana.data.util.SessionManager
 import com.example.takana.data.util.UserToken
 import com.example.takana.databinding.ActivityMoneyAccountsAddEditBinding
@@ -41,7 +43,6 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
         getThisIntent = intent
         token = SessionManager.getToken(applicationContext).toString()
         setupContent()
-        viewModelAddMoneyAccount()
     }
 
     private fun setupContent() {
@@ -62,6 +63,7 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
                         user?.userId!!,
                         etBankAccountNumber.text.toString().toIntOrNull()
                     )
+                    viewModelAddMoneyAccount()
                 }
             } else if (getThisIntent.getStringExtra("TODO_MONEY_ACCOUNT").toString() == "Edit") {
                 btnDeleteMoneyAccount.visibility = View.VISIBLE
@@ -72,6 +74,8 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
                     setMargins(30, 60, 0, 0)
                 }
                 showToast("HAI EDIT")
+                viewModel.getDetailAccountMoney(token, getThisIntent.getIntExtra("ID", 0).toLong())
+                viewModelGetDetailMoneyAccount()
             }
         }
     }
@@ -171,4 +175,50 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 
+
+    private fun viewModelGetDetailMoneyAccount() {
+        viewModel.getDetailMoneyAccountResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processGetDetailMoneyAccount(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processGetDetailMoneyAccount(data: GetDetailAccountResponse?) {
+        showToast(data?.message.toString())
+        Log.d("TAG", "processGetDetailMoneyAccount: $data")
+        stopLoading()
+        binding.apply {
+            etAccountName.setText(data?.data?.accountName)
+            etAccountAmount.setText(data?.data?.accountAmount.toString())
+            when (data?.data?.accountTypeName.toString()) {
+                "Umum" -> accountTypeId = 1
+                "Tunai" -> accountTypeId = 2
+                "Akun Terbaru" -> accountTypeId = 3
+                "Kartu Kredit" -> accountTypeId = 4
+                "Akun Simpanan" -> accountTypeId = 5
+                "Bonus" -> accountTypeId = 6
+                "Asuransi" -> accountTypeId = 7
+                "Investasi" -> accountTypeId = 8
+                "Pinjaman" -> accountTypeId = 9
+                "Lainnya" -> accountTypeId = 10
+            }
+            spinnerAccountType.setSelection(accountTypeId)
+            etBankAccountNumber.setText(data?.data?.bankAccountNumber.toString())
+        }
+    }
 }

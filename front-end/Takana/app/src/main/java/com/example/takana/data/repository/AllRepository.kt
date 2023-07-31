@@ -7,6 +7,7 @@ import com.example.takana.data.model.request.MoneyAccountAddRequest
 import com.example.takana.data.model.request.RegisterRequest
 import com.example.takana.data.model.response.AddResponse
 import com.example.takana.data.model.response.GetAllAccountResponse
+import com.example.takana.data.model.response.GetDetailAccountResponse
 import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.model.response.RegisterResponse
 import retrofit2.Response
@@ -30,5 +31,9 @@ class AllRepository {
 
     suspend fun addAccountMoney(token: String, moneyAccountAddRequest: MoneyAccountAddRequest): Response<AddResponse>?? {
         return MainApi.getApi()?.addAccount(token, moneyAccountAddRequest)
+    }
+
+    suspend fun getDetailAccount(token: String, id: Long): Response<GetDetailAccountResponse>? {
+        return MainApi.getApi()?.getDetailAccount(token, id)
     }
 }

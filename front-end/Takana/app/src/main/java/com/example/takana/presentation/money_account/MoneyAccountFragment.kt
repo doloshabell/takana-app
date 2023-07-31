@@ -94,6 +94,7 @@ class MoneyAccountFragment : Fragment() {
                     startActivity(
                         Intent(requireContext(), MoneyAccountAddEditActivity()::class.java)
                             .putExtra("TODO_MONEY_ACCOUNT", "Edit")
+                            .putExtra("ID", accountData.accountId)
                     )
                 }
             })

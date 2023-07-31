@@ -8,6 +8,7 @@ import com.example.takana.data.model.request.MoneyAccountAddRequest
 import com.example.takana.data.model.response.AddResponse
 import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.GetAllAccountResponse
+import com.example.takana.data.model.response.GetDetailAccountResponse
 import com.example.takana.data.repository.AllRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -18,6 +19,8 @@ class MoneyAccountViewModel(application: Application) : AndroidViewModel(applica
     val getAllAccountResult: MutableLiveData<BaseResponse<GetAllAccountResponse>> =
         MutableLiveData()
     val addDataMoneyAccountResult: MutableLiveData<BaseResponse<AddResponse>> = MutableLiveData()
+    val getDetailMoneyAccountResult: MutableLiveData<BaseResponse<GetDetailAccountResponse>> =
+        MutableLiveData()
 
     fun getAllAccountMoney(token: String) {
         getAllAccountResult.value = BaseResponse.Loading()
@@ -53,6 +56,21 @@ class MoneyAccountViewModel(application: Application) : AndroidViewModel(applica
                     addDataMoneyAccountResult.value = BaseResponse.Success(response.body())
                 } else
                     addDataMoneyAccountResult.value = BaseResponse.Error(response.body()?.message)
+            } catch (ex: Exception) {
+                addDataMoneyAccountResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun getDetailAccountMoney(token: String, id: Long) {
+        getDetailMoneyAccountResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val response = allRepository.getDetailAccount("Bearer $token", id)
+                if (response?.body()?.status!!)
+                    getDetailMoneyAccountResult.value = BaseResponse.Success(response.body())
+                else
+                    getDetailMoneyAccountResult.value = BaseResponse.Error(response.body()?.message)
             } catch (ex: Exception) {
                 addDataMoneyAccountResult.value = BaseResponse.Error(ex.message)
             }
