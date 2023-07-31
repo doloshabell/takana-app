@@ -4,10 +4,10 @@ data class GetDetailAccountResponse(
     val status: Boolean,
     val message: String,
     val errors: Any,
-    val data: Data
+    val data: DataDetailAccount
 )
 
-data class Data(
+data class DataDetailAccount(
     val accountAmount: Int,
     val accountId: Int,
     val accountName: String,
