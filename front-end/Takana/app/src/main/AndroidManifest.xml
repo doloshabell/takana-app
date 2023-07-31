@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Takana"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.money_account.MoneyAccountsAddEditActivity"
+            android:name=".presentation.money_account.MoneyAccountAddEditActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.transaction.TransactionAddEditActivity"

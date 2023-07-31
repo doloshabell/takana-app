@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.ActivityMainBinding
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupContent() {
-        replaceFragment(HomeFragment())
+        getIntentFrom()
         binding.apply {
             bnvMenu.setOnItemSelectedListener {
                 when (it.itemId) {
@@ -60,6 +61,28 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fl_activity, fragment)
         fragmentTransaction.commit()
+    }
+
+    private fun getIntentFrom() {
+        val getIntentFrom: Intent = intent
+        when (getIntentFrom.getStringExtra("FROM")) {
+            "MONEY_ACCOUNT_ADD_EDIT" -> {
+                replaceFragment(MoneyAccountFragment())
+                binding.bnvMenu.selectedItemId = R.id.account
+            }
+
+            "TRANSACTION_ADD_EDIT" -> {
+                replaceFragment(TransactionFragment())
+                binding.bnvMenu.selectedItemId = R.id.account
+            }
+
+            "PROFILE_EDIT" -> {
+                replaceFragment(ProfileFragment())
+                binding.bnvMenu.selectedItemId = R.id.profile
+            }
+
+            else -> replaceFragment(HomeFragment())
+        }
     }
 
 }

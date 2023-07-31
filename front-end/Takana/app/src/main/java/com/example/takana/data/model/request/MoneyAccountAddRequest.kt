@@ -4,6 +4,6 @@ data class MoneyAccountAddRequest(
     val accountName: String,
     val accountAmount: Long,
     val accountTypeId: Int,
-    val userId: Int,
-    val bankAccountNumber: Long
+    val userId: Long,
+    val bankAccountNumber: Int?
 )

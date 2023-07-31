@@ -1,28 +1,21 @@
 package com.example.takana.presentation.money_account
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.takana.MainActivity
-import com.example.takana.R
 import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.DataAccount
 import com.example.takana.data.model.response.GetAllAccountResponse
-import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.FragmentMoneyAccountBinding
-import kotlinx.android.synthetic.main.activity_main.bnv_menu
 
 class MoneyAccountFragment : Fragment() {
 
@@ -94,7 +87,16 @@ class MoneyAccountFragment : Fragment() {
         showToast(data?.message.toString())
         SPAllAccount.saveAllAccount(requireContext(), data?.data!!)
         recyclerView = binding.rvListAccountMoney
-        adapter = MoneyAccountListAdapter()
+        adapter = MoneyAccountListAdapter(
+            arrayListOf(),
+            object : MoneyAccountListAdapter.OnAdapterListener {
+                override fun onClick(accountData: DataAccount) {
+                    startActivity(
+                        Intent(requireContext(), MoneyAccountAddEditActivity()::class.java)
+                            .putExtra("TODO_MONEY_ACCOUNT", "Edit")
+                    )
+                }
+            })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         if (SPAllAccount.getAccountList(requireContext()).isNotEmpty()) {

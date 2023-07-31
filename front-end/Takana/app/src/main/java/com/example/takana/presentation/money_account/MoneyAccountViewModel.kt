@@ -39,8 +39,8 @@ class MoneyAccountViewModel(application: Application) : AndroidViewModel(applica
         accountName: String,
         accountAmount: Long,
         accountTypeId: Int,
-        userId: Int,
-        bankAccountNumber: Long
+        userId: Long,
+        bankAccountNumber: Int?
     ) {
         addDataMoneyAccountResult.value = BaseResponse.Loading()
         viewModelScope.launch {

@@ -2,25 +2,16 @@ package com.example.takana.presentation.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import android.view.View.OnFocusChangeListener
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.data.model.response.BaseResponse
-import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.model.response.RegisterResponse
-import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.ActivityRegisterBinding
 import com.example.takana.presentation.login.LoginActivity
-import com.example.takana.presentation.login.LoginViewModel
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -70,10 +61,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        onBackPressedDispatcher.onBackPressed()
-    }
-
     private fun viewModelRegister() {
         viewModel.registerResult.observe(this) {
             when (it) {
@@ -82,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 is BaseResponse.Success -> {
-                    processLogin(it.data)
+                    processRegister(it.data)
                 }
 
                 is BaseResponse.Error -> {
@@ -105,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.pbLoading.visibility = View.GONE
     }
 
-    private fun processLogin(data: RegisterResponse?) {
+    private fun processRegister(data: RegisterResponse?) {
         showToast(data?.message.toString())
         stopLoading()
         val intent = Intent(applicationContext, MainActivity::class.java)
