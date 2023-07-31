@@ -37,7 +37,7 @@ class MoneyAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         token = SessionManager.getToken(requireContext()).toString()
-        viewModel.getAllAccountMoney(token)
+        viewModel.getAllMoneyAccount(token)
         viewModelGetAllAccount()
         setupContent()
     }
@@ -94,7 +94,7 @@ class MoneyAccountFragment : Fragment() {
                     startActivity(
                         Intent(requireContext(), MoneyAccountAddEditActivity()::class.java)
                             .putExtra("TODO_MONEY_ACCOUNT", "Edit")
-                            .putExtra("ID", accountData.accountId)
+                            .putExtra("ID_MONEY_ACCOUNT", accountData.accountId)
                     )
                 }
             })

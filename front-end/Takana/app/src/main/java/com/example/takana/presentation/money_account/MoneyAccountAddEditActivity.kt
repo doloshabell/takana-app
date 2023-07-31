@@ -3,7 +3,6 @@ package com.example.takana.presentation.money_account
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -12,10 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginEnd
 import androidx.core.view.updateLayoutParams
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.takana.MainActivity
 import com.example.takana.R
 import com.example.takana.data.model.response.AddResponse
@@ -49,23 +45,27 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
         setSpinnerAccountType()
         val user: UserToken.User? = UserToken.getObjectFromSharedPreferences(applicationContext)
         binding.apply {
-            tvTitle.text = getString(
-                R.string.add_or_edit_money_account,
-                getThisIntent.getStringExtra("TODO_MONEY_ACCOUNT")
-            )
             if (getThisIntent.getStringExtra("TODO_MONEY_ACCOUNT").toString() == "Add") {
+                tvTitle.text = getString(
+                    R.string.add_or_edit_money_account,
+                    "Tambah"
+                )
                 btnSaveMoneyAccount.setOnClickListener {
-                    viewModel.addAccountMoney(
+                    viewModel.addMoneyAccount(
                         token,
                         etAccountName.text.toString(),
                         etAccountAmount.text.toString().toLong(),
                         accountTypeId,
                         user?.userId!!,
-                        etBankAccountNumber.text.toString().toIntOrNull()
+                        etBankAccountNumber.text.toString().toInt()
                     )
                     viewModelAddMoneyAccount()
                 }
             } else if (getThisIntent.getStringExtra("TODO_MONEY_ACCOUNT").toString() == "Edit") {
+                tvTitle.text = getString(
+                    R.string.add_or_edit_money_account,
+                    "Ubah"
+                )
                 btnDeleteMoneyAccount.visibility = View.VISIBLE
                 btnDeleteMoneyAccount.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     setMargins(0, 60, 30, 0)
@@ -73,9 +73,33 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
                 btnSaveMoneyAccount.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     setMargins(30, 60, 0, 0)
                 }
-                showToast("HAI EDIT")
-                viewModel.getDetailAccountMoney(token, getThisIntent.getIntExtra("ID", 0).toLong())
+                val accountId = getThisIntent.getIntExtra("ID_MONEY_ACCOUNT", 0)
+                viewModel.getDetailMoneyAccount(token, accountId.toLong())
                 viewModelGetDetailMoneyAccount()
+                btnDeleteMoneyAccount.setOnClickListener {
+                    viewModel.deleteDataMoneyAccount(
+                        token,
+                        accountId,
+                        etAccountName.text.toString(),
+                        etAccountAmount.text.toString().toLong(),
+                        accountTypeId,
+                        user?.userId!!,
+                        etBankAccountNumber.text.toString().toInt()
+                    )
+                    viewModelDeleteDataMoneyAccount()
+                }
+                btnSaveMoneyAccount.setOnClickListener {
+                    viewModel.updateDataMoneyAccount(
+                        token,
+                        accountId,
+                        etAccountName.text.toString(),
+                        etAccountAmount.text.toString().toLong(),
+                        accountTypeId,
+                        user?.userId!!,
+                        etBankAccountNumber.text.toString().toInt()
+                    )
+                    viewModelUpdateDataMoneyAccount()
+                }
             }
         }
     }
@@ -152,6 +176,10 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
     private fun processAddMoneyAccount(data: AddResponse?) {
         showToast(data?.message.toString())
         stopLoading()
+        goToMoneyAccount()
+    }
+
+    private fun goToMoneyAccount() {
         val intent = Intent(applicationContext, MainActivity::class.java);
         intent.putExtra("FROM", "MONEY_ACCOUNT_ADD_EDIT")
         startActivity(intent)
@@ -200,7 +228,6 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
 
     private fun processGetDetailMoneyAccount(data: GetDetailAccountResponse?) {
         showToast(data?.message.toString())
-        Log.d("TAG", "processGetDetailMoneyAccount: $data")
         stopLoading()
         binding.apply {
             etAccountName.setText(data?.data?.accountName)
@@ -220,5 +247,61 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
             spinnerAccountType.setSelection(accountTypeId)
             etBankAccountNumber.setText(data?.data?.bankAccountNumber.toString())
         }
+    }
+
+    private fun viewModelDeleteDataMoneyAccount() {
+        viewModel.deleteDataMoneyAccountResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processDeleteDataMoneyAccount(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processDeleteDataMoneyAccount(data: AddResponse?) {
+        showToast(data?.message.toString())
+        stopLoading()
+        goToMoneyAccount()
+    }
+
+    private fun viewModelUpdateDataMoneyAccount() {
+        viewModel.updateDataMoneyAccountResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processUpdateDataMoneyAccount(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processUpdateDataMoneyAccount(data: AddResponse?) {
+        showToast(data?.message.toString())
+        stopLoading()
+        goToMoneyAccount()
     }
 }
