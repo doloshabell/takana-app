@@ -27,8 +27,8 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
     lateinit var binding: ActivityMoneyAccountsAddEditBinding
     lateinit var getThisIntent: Intent
     lateinit var token: String
-    var accountTypeId: Int = 0
     private val viewModel by viewModels<MoneyAccountViewModel>()
+    var accountTypeId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

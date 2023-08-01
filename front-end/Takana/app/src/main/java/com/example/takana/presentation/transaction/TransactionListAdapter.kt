@@ -40,6 +40,9 @@ class TransactionListAdapter(
         holder.view.tv_item_account.text = transactionItem.accountName
         holder.view.tv_item_amount.text = transactionItem.amount.toLong().toRupiah()
         holder.view.tv_item_date.text = transactionItem.transactionDate
+        holder.view.setOnClickListener {
+            listener.onClick(transactionItem)
+        }
     }
 
     fun setData(dataTransactions: List<DataAllTransaction>) {

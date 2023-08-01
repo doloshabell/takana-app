@@ -9,10 +9,17 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.takana.MainActivity
 import com.example.takana.R
+import com.example.takana.data.model.response.AddResponse
+import com.example.takana.data.model.response.BaseResponse
 import com.example.takana.data.model.response.DataAccount
+import com.example.takana.data.model.response.GetDetailTransactionResponse
 import com.example.takana.data.util.SPAllAccount
+import com.example.takana.data.util.SessionManager
+import com.example.takana.data.util.toRupiah
 import com.example.takana.databinding.ActivityTransactionAddEditBinding
 
 
@@ -20,7 +27,9 @@ class TransactionAddEditActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityTransactionAddEditBinding
     lateinit var getThisIntent: Intent
+    lateinit var token: String
     private var accountList: ArrayList<DataAccount> = ArrayList()
+    private val viewModel by viewModels<TransactionViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +38,7 @@ class TransactionAddEditActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         getThisIntent = intent
+        token = SessionManager.getToken(applicationContext).toString()
         accountList.addAll(SPAllAccount.getAccountList(applicationContext))
         setupContent()
     }
@@ -38,11 +48,54 @@ class TransactionAddEditActivity : AppCompatActivity() {
         setSpinnerTransactionCategoryTypes()
         setSpinnerFromAccount()
         binding.apply {
-            tvTitle.text =
-                getString(
-                    R.string.add_or_edit_transaction,
-                    getThisIntent.getStringExtra("TODO_TRANSACTION")
+            if (getThisIntent.getStringExtra("TODO_TRANSACTION").toString() == "Add") {
+                tvTitle.text =
+                    getString(
+                        R.string.add_or_edit_transaction,
+                        "Tambah"
+                    )
+                btnSaveTransaction.setOnClickListener {
+                    viewModel.addDataTransaction(token, 0, 0, 0, "", 0, 0, "")
+                    viewModelAddDataTransaction()
+                }
+            } else if (getThisIntent.getStringExtra("TODO_TRANSACTION").toString() == "Edit") {
+                tvTitle.text =
+                    getString(
+                        R.string.add_or_edit_transaction,
+                        "Detail"
+                    )
+                viewModel.getDetailTransaction(
+                    token,
+                    getThisIntent.getIntExtra("ID_TRANSACTION", 0).toLong()
                 )
+                viewModelGetDetailTransaction()
+                etTransactionAmount.isEnabled = false
+                spinnerTransactionType.isEnabled = false
+                spinnerTransactionCategory.isEnabled = false
+                spinnerTransactionFromAcc.isEnabled = false
+                spinnerTransactionToAcc.isEnabled = false
+                etTransactionDate.isEnabled = false
+                etTransactionTime.isEnabled = false
+                etTransactionNote.isEnabled = false
+                btnSaveTransaction.text = "Hapus Transaksi"
+                btnSaveTransaction.setOnClickListener {
+                    viewModel.deleteDataTransaction(
+                        token,
+                        10,
+                        1,
+                        "",
+                        2,
+                        "",
+                        0,
+                        0,
+                        "",
+                        0,
+                        0
+                    )
+                    viewModelDeleteDataTransaction()
+                }
+
+            }
 
             /*if (spinnerTransactionType.isSelected) {
                 Toast.makeText(
@@ -243,5 +296,120 @@ class TransactionAddEditActivity : AppCompatActivity() {
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
         }
+    }
+
+    private fun viewModelGetDetailTransaction() {
+        viewModel.getDetailTransactionsResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processGetDetailTransaction(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun viewModelDeleteDataTransaction() {
+        viewModel.deleteDataTransactionResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processAddorDeleteDataTransaction(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun viewModelAddDataTransaction() {
+        viewModel.addDataTransactionResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processAddorDeleteDataTransaction(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processGetDetailTransaction(data: GetDetailTransactionResponse?) {
+        showToast(data?.message.toString())
+        stopLoading()
+        binding.apply {
+            etTransactionAmount.setText(data?.data?.amount?.toLong().toRupiah())
+            spinnerTransactionType.setSelection(data?.data?.transactionType!!)
+            spinnerTransactionCategory.setSelection(data.data.categoryId)
+            spinnerTransactionFromAcc.setSelection(data.data.fromAccountId)
+            if (data.data.toAccountId != 0 || data.data.toAccountId != null) {
+                setSpinnerToAccount()
+                spinnerTransactionToAcc.visibility = View.VISIBLE
+                spinnerTransactionToAcc.setSelection(data.data.toAccountId)
+            }
+            etTransactionDate.setText(data.data.transactionDate)
+            etTransactionTime.setText(data.data.transactionDate)
+            etTransactionNote.setText(data.data.note)
+        }
+    }
+
+    private fun processAddorDeleteDataTransaction(data: AddResponse?) {
+        showToast(data?.message.toString())
+        stopLoading()
+        goToTransaction()
+    }
+
+    private fun goToTransaction() {
+        val intent = Intent(applicationContext, MainActivity::class.java);
+        intent.putExtra("FROM", "TRANSACTION_ADD_EDIT")
+        startActivity(intent)
+        finish()
+    }
+
+    private fun showLoading() {
+        binding.pbLoading.visibility = View.VISIBLE
+    }
+
+    private fun stopLoading() {
+        binding.pbLoading.visibility = View.GONE
+    }
+
+    fun processError(msg: String?) {
+        showToast(msg.toString())
+        stopLoading()
+    }
+
+    fun showToast(msg: String) {
+        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
     }
 }

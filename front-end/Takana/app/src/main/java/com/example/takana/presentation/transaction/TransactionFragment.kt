@@ -84,7 +84,7 @@ class TransactionFragment : Fragment() {
             object : TransactionListAdapter.OnAdapterListener {
                 override fun onClick(dataTransaction: DataAllTransaction) {
                     startActivity(
-                        Intent(requireContext(), MoneyAccountAddEditActivity()::class.java)
+                        Intent(requireContext(), TransactionAddEditActivity()::class.java)
                             .putExtra("TODO_TRANSACTION", "Edit")
                             .putExtra("ID_TRANSACTION", dataTransaction.transactionId)
                     )

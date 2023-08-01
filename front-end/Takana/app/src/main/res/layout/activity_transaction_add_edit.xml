@@ -54,7 +54,7 @@
             android:textAlignment="textEnd"
             android:textColor="@color/container_color"
             android:textColorHint="@color/container_color"
-            android:textSize="@dimen/_40ssp"
+            android:textSize="@dimen/_30ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -159,7 +159,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_transaction_time" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_update_profile"
+            android:id="@+id/btn_save_transaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
