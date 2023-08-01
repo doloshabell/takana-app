@@ -21,7 +21,7 @@ data class DataAccount(
     val accountId: Int,
     val accountName: String,
     val accountTypeName: String,
-    val bankAccountNumber: Int,
+    val bankAccountNumber: String,
     val createdAt: String,
     val deletedAt: Any,
     val updatedAt: String,

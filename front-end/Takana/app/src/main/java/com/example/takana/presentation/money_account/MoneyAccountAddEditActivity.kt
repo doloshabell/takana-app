@@ -57,7 +57,7 @@ class MoneyAccountAddEditActivity : AppCompatActivity() {
                         etAccountAmount.text.toString().toLong(),
                         accountTypeId,
                         user?.userId!!,
-                        etBankAccountNumber.text.toString().toInt()
+                        etBankAccountNumber.text.toString()
                     )
                     viewModelAddMoneyAccount()
                 }

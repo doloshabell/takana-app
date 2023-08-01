@@ -24,7 +24,6 @@ class MoneyAccountListAdapter(
         )
     )
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val accountList = accountLists[position]
         holder.view.tv_item_category.text = accountList.accountName

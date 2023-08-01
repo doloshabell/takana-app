@@ -45,4 +45,5 @@
     <string name="add_or_edit_transaction">%1$s Transaction</string>
     <string name="add_or_edit_money_account">%1$s Akun Uang</string>
     <string name="one_string">%1$s</string>
+    <string name="catatan">Catatan</string>
 </resources>
