@@ -11,12 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.takana.data.model.response.BaseResponse
-import com.example.takana.data.model.response.DataAccount
 import com.example.takana.data.model.response.DataAllTransaction
 import com.example.takana.data.model.response.GetAllTransactionsResponse
 import com.example.takana.data.util.SessionManager
 import com.example.takana.databinding.FragmentTransactionBinding
-import com.example.takana.presentation.money_account.MoneyAccountAddEditActivity
 
 class TransactionFragment : Fragment() {
 
@@ -25,7 +23,6 @@ class TransactionFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionListAdapter
     private val viewModel by viewModels<TransactionViewModel>()
-    private val transactionList: ArrayList<DataAllTransaction> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +36,7 @@ class TransactionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         token = SessionManager.getToken(requireContext()).toString()
         viewModel.getAllTransaction(token)
-        viewModelGetAllAccount()
+        viewModelGetAllTransaction()
         setupContent()
     }
 
@@ -54,7 +51,7 @@ class TransactionFragment : Fragment() {
         }
     }
 
-    private fun viewModelGetAllAccount() {
+    private fun viewModelGetAllTransaction() {
         viewModel.getAllTransactionResult.observe(this) {
             when (it) {
                 is BaseResponse.Loading -> {

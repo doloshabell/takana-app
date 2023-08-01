@@ -87,7 +87,7 @@ class MoneyAccountViewModel(application: Application) : AndroidViewModel(applica
         accountAmount: Long,
         accountTypeId: Int,
         userId: Long,
-        bankAccountNumber: Int?
+        bankAccountNumber: String
     ) {
         updateDataMoneyAccountResult.value = BaseResponse.Loading()
         viewModelScope.launch {
@@ -115,7 +115,7 @@ class MoneyAccountViewModel(application: Application) : AndroidViewModel(applica
         accountAmount: Long,
         accountTypeId: Int,
         userId: Long,
-        bankAccountNumber: Int?
+        bankAccountNumber: String
     ) {
         deleteDataMoneyAccountResult.value = BaseResponse.Loading()
         viewModelScope.launch {

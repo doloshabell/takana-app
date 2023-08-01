@@ -6,5 +6,5 @@ data class MoneyAccountUpdateRequest(
     val accountAmount: Long,
     val accountTypeId: Int,
     val userId: Long,
-    val bankAccountNumber: Int?
+    val bankAccountNumber: String
 )
