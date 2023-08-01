@@ -7,4 +7,5 @@ data class TransactionAddRequest(
     val note: String,
     val fromAccountId: Int,
     val toAccountId: Int,
+    val transactionDate: String
 )
