@@ -15,7 +15,7 @@
         android:fontFamily="@font/manrope_bold"
         android:text="Kategory"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:fontFamily="@font/manrope_regular"
         android:text="Account"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="@dimen/_11ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_item_category" />
 
@@ -37,7 +37,7 @@
         android:fontFamily="@font/manrope_bold"
         android:text="-Rp12.345,00"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,7 +48,7 @@
         android:fontFamily="@font/manrope_regular"
         android:text="25 Jul"
         android:textColor="@color/text_color"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="@dimen/_11ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_item_amount" />
 

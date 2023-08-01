@@ -8,12 +8,12 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.takana.R
 import com.example.takana.data.model.response.DataAllTransaction
-import com.example.takana.presentation.money_account.MoneyAccountListAdapter
+import com.example.takana.data.util.toRupiah
 import kotlinx.android.synthetic.main.item_list_transaction.view.*
 
 class TransactionListAdapter(
     var transactionLists: ArrayList<DataAllTransaction>,
-    val listener: MoneyAccountListAdapter.OnAdapterListener
+    val listener: OnAdapterListener
 ) : RecyclerView.Adapter<TransactionListAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -38,7 +38,7 @@ class TransactionListAdapter(
 //        dtf.format(odt)
         holder.view.tv_item_category.text = transactionItem.categoryName
         holder.view.tv_item_account.text = transactionItem.accountName
-        holder.view.tv_item_amount.text = transactionItem.amount.toString()
+        holder.view.tv_item_amount.text = transactionItem.amount.toLong().toRupiah()
         holder.view.tv_item_date.text = transactionItem.transactionDate
     }
 

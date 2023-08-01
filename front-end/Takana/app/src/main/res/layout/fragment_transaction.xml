@@ -14,14 +14,27 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="@dimen/width_56"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_8"
+                android:layout_marginVertical="@dimen/margin_8"
+                android:translationZ="@dimen/width_8"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/ll_title_page"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_32"
-                android:layout_marginBottom="@dimen/margin_12"
+                android:layout_marginTop="@dimen/_25sdp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,10 +65,12 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_account_money"
+                android:id="@+id/rv_list_transaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_title_page"
                 tools:listitem="@layout/item_list_transaction" />
 
