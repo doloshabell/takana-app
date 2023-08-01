@@ -1,11 +1,13 @@
 package com.example.takana.presentation.home
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.takana.MainActivity
@@ -19,6 +21,9 @@ import com.example.takana.databinding.FragmentHomeBinding
 import com.example.takana.presentation.money_account.MoneyAccountFragment
 import com.example.takana.presentation.profile.ProfileViewModel
 import com.example.takana.presentation.transaction.TransactionFragment
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.apply
 
 class HomeFragment : Fragment() {
@@ -33,12 +38,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         token = SessionManager.getToken(requireContext()).toString()
         user = UserToken.getObjectFromSharedPreferences(requireContext())!!
         viewModelProfile.getDetailProfile(token, user.userId!!.toLong())
+
         viewModelGetDetailProfile()
         setupContent(requireContext())
-        return binding.root
     }
 
     private fun setupContent(context: Context) {
