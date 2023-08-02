@@ -18,6 +18,7 @@ import com.example.takana.data.model.response.GetDetailProfileResponse
 import com.example.takana.data.model.response.GetDetailTransactionResponse
 import com.example.takana.data.model.response.LoginResponse
 import com.example.takana.data.model.response.RegisterResponse
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class AllRepository {
@@ -91,6 +92,12 @@ class AllRepository {
         transactionDeleteRequest: TransactionDeleteRequest
     ): Response<AddResponse>? {
         return MainApi.getApi()?.deleteDataTransaction(token, transactionDeleteRequest)
+    }
+
+    suspend fun getDownloadPdf(
+        token: String,
+    ): Response<ResponseBody>? {
+        return MainApi.getApi()?.downloadTransaction(token)
     }
 
     //profile

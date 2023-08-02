@@ -1,6 +1,7 @@
 package com.example.takana.presentation.transaction
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,9 @@ import com.example.takana.data.model.response.GetAllTransactionsResponse
 import com.example.takana.data.model.response.GetDetailTransactionResponse
 import com.example.takana.data.repository.AllRepository
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Retrofit
+import java.io.File
 import java.lang.Exception
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,6 +28,7 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         MutableLiveData()
     val addDataTransactionResult: MutableLiveData<BaseResponse<AddResponse>> = MutableLiveData()
     val deleteDataTransactionResult: MutableLiveData<BaseResponse<AddResponse>> = MutableLiveData()
+    val downloadPdfResult: MutableLiveData<BaseResponse<ResponseBody>> = MutableLiveData()
 
     fun getAllTransaction(token: String) {
         getAllTransactionResult.value = BaseResponse.Loading()
@@ -129,6 +134,21 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
                     addDataTransactionResult.value = BaseResponse.Error(response.message())
             } catch (ex: Exception) {
                 addDataTransactionResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun downloadPdf(token: String) {
+        downloadPdfResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val response = allRepository.getDownloadPdf("Bearer $token")
+                if (response?.body() != null) {
+                    downloadPdfResult.value = BaseResponse.Success(response.body())
+                } else
+                    downloadPdfResult.value = BaseResponse.Error(response!!.message())
+            } catch (ex: Exception) {
+                downloadPdfResult.value = BaseResponse.Error(ex.message)
             }
         }
     }

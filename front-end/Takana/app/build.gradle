@@ -18,8 +18,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "SECRET_KEY", '"93669087-9f50-4c38-9a6f-7168da4deeb6"')
-        buildConfigField("String", "BASE_URL_AUTH", '"https://auth-production-c2e0.up.railway.app"')
-        buildConfigField("String", "BASE_URL_MAIN", '"https://https://5ad7-103-172-244-4.ngrok-free.app/transaction/export-pdf"')
+        buildConfigField("String", "BASE_URL_AUTH", '"https://5a62-103-172-244-4.ngrok-free.app"')
+        buildConfigField("String", "BASE_URL_MAIN", '"https://329d-103-172-244-4.ngrok-free.app"')
     }
 
     buildTypes {

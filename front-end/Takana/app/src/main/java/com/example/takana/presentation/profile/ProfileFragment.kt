@@ -2,11 +2,12 @@ package com.example.takana.presentation.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.takana.MainActivity
 import com.example.takana.R
@@ -17,18 +18,26 @@ import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
 import com.example.takana.data.util.UserToken
 import com.example.takana.databinding.FragmentProfileBinding
+import com.example.takana.presentation.transaction.TransactionViewModel
+import okhttp3.ResponseBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.Calendar
+
 
 class ProfileFragment : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
     private val viewModel by viewModels<ProfileViewModel>()
+    private val viewModelTransaction by viewModels<TransactionViewModel>()
     lateinit var token: String
     lateinit var user: UserToken.User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -53,6 +62,11 @@ class ProfileFragment : Fragment() {
             tvLogout.setOnClickListener {
                 viewModel.logOutUser(token)
                 viewModelLogOut()
+            }
+
+            tvExportData.setOnClickListener {
+                viewModelTransaction.downloadPdf(token)
+                downloadDataPdf()
             }
         }
     }
@@ -139,4 +153,70 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun downloadDataPdf() {
+        viewModelTransaction.downloadPdfResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                    showLoading()
+                }
+
+                is BaseResponse.Success -> {
+                    processDownloadData(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+
+                else -> {
+                    stopLoading()
+                }
+            }
+        }
+    }
+
+    private fun processDownloadData(data: ResponseBody?) {
+        showToast("Success")
+        stopLoading()
+
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        savePdfToInterbal(data!!, "report_takana_file".plus(day).plus(month).plus(year).plus(".pdf"))
+    }
+
+    private fun savePdfToInterbal(body: ResponseBody, fileName: String) {
+        try {
+            val inputStream = body.byteStream()
+
+            val directory =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+
+            if (!directory.exists()) {
+                directory.mkdirs()
+            }
+
+            val file = File(directory, fileName)
+
+            val fileOutputStream = FileOutputStream(file)
+            val buffer = ByteArray(4096)
+            var bytesRead: Int
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead)
+            }
+            fileOutputStream.close()
+            inputStream.close()
+            Toast.makeText(
+                requireContext(),
+                "File berhasil disimpan : $fileName",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "Gagal Menyimpan file", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

@@ -100,7 +100,7 @@
                     android:textSize="@dimen/textSize_16" />
 
                 <TextView
-                    android:id="@+id/tv_edit_privacy"
+                    android:id="@+id/tv_export_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_16"

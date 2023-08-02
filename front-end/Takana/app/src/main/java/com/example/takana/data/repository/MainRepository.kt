@@ -12,6 +12,7 @@ import com.example.takana.data.model.response.GetAllTransactionsResponse
 import com.example.takana.data.model.response.GetDetailAccountResponse
 import com.example.takana.data.model.response.GetDetailProfileResponse
 import com.example.takana.data.model.response.GetDetailTransactionResponse
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -75,6 +76,11 @@ interface MainRepository {
         @Header("Authorization") token: String,
         @Body transactionDeleteRequest: TransactionDeleteRequest
     ): Response<AddResponse>
+
+    @GET("/transaction/export-pdf")
+    suspend fun downloadTransaction(
+        @Header("Authorization") token: String
+    ): Response<ResponseBody>
 
     //profile
     @GET("/user/profile/{id}")
