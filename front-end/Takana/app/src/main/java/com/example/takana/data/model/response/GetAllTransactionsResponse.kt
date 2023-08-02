@@ -12,7 +12,7 @@ data class DataAllTransaction(
     val accountAmount: Int,
     val accountName: String,
     val amount: Int,
-    val bankAccountNumber: Int,
+    val bankAccountNumber: Long,
     val categoryName: String,
     val fromAccountID: Int,
     val fullName: String,

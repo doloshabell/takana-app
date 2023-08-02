@@ -7,6 +7,7 @@ import com.example.takana.data.model.request.MoneyAccountAddRequest
 import com.example.takana.data.model.request.MoneyAccountUpdateRequest
 import com.example.takana.data.model.request.RegisterRequest
 import com.example.takana.data.model.request.TransactionAddRequest
+import com.example.takana.data.model.request.TransactionDeleteRequest
 import com.example.takana.data.model.request.TransactionUpdateRequest
 import com.example.takana.data.model.request.UpdateProfileRequest
 import com.example.takana.data.model.response.AddResponse
@@ -87,9 +88,9 @@ class AllRepository {
 
     suspend fun deleteDataTransaction(
         token: String,
-        transactionUpdateRequest: TransactionUpdateRequest
+        transactionDeleteRequest: TransactionDeleteRequest
     ): Response<AddResponse>? {
-        return MainApi.getApi()?.deleteDataTransaction(token, transactionUpdateRequest)
+        return MainApi.getApi()?.deleteDataTransaction(token, transactionDeleteRequest)
     }
 
     //profile

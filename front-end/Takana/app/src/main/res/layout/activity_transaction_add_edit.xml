@@ -117,33 +117,31 @@
             app:layout_constraintTop_toBottomOf="@id/spinner_transaction_from_acc"
             tools:visibility="visible" />
 
-        <EditText
-            android:id="@+id/et_transaction_date"
+        <TextView
+            android:id="@+id/tv_transaction_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:drawableEnd="@drawable/ic_calendar"
             android:background="@drawable/border_edittext"
             android:hint="DD/MM/YYYY"
-            android:inputType="datetime"
             android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_transaction_to_acc" />
 
-        <EditText
-            android:id="@+id/et_transaction_time"
+        <TextView
+            android:id="@+id/tv_transaction_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:drawableEnd="@drawable/ic_calendar"
+            android:drawableEnd="@drawable/round_access_time_24"
             android:background="@drawable/border_edittext"
             android:hint="HH:MM"
-            android:inputType="datetime"
             android:paddingVertical="@dimen/_12sdp"
             android:paddingHorizontal="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_transaction_date" />
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_date" />
 
         <EditText
             android:id="@+id/et_transaction_note"
@@ -156,7 +154,7 @@
             android:paddingVertical="@dimen/_12sdp"
             android:paddingStart="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_transaction_time" />
+            app:layout_constraintTop_toBottomOf="@id/tv_transaction_time" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save_transaction"

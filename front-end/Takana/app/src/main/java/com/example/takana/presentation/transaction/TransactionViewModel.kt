@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.takana.data.model.request.TransactionAddRequest
+import com.example.takana.data.model.request.TransactionDeleteRequest
 import com.example.takana.data.model.request.TransactionUpdateRequest
 import com.example.takana.data.model.response.AddResponse
 import com.example.takana.data.model.response.BaseResponse
@@ -89,31 +90,37 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
 
     fun deleteDataTransaction(
         token: String,
-        amount: Int,
-        categoryId: Int,
-        deletedAt: Any,
-        fromAccountId: Int,
-        note: String,
-        toAccountId: Int,
-        transactionCode: Long,
-        transactionDate: String,
         transactionId: Int,
-        transactionType: Int
+        transactionCode: Long,
+        transactionType: Int,
+        transactionDate: String,
+        amount: Int,
+        fromAccountId: Int,
+        toAccountId: Int,
+        accountName: String,
+        categoryId: Int,
+        categoryName: String,
+        note: String,
+        deletedAt: String,
+        userId: Int
     ) {
         deleteDataTransactionResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
-                val request = TransactionUpdateRequest(
-                    amount,
-                    categoryId,
-                    deletedAt,
-                    fromAccountId,
-                    note,
-                    toAccountId,
-                    transactionCode,
-                    transactionDate,
+                val request = TransactionDeleteRequest(
                     transactionId,
-                    transactionType
+                    transactionCode,
+                    transactionType,
+                    transactionDate,
+                    amount,
+                    fromAccountId,
+                    toAccountId,
+                    accountName,
+                    categoryId,
+                    categoryName,
+                    note,
+                    deletedAt,
+                    userId
                 )
                 val response = allRepository.deleteDataTransaction("Bearer $token", request)
                 if (response?.body()?.status!!)

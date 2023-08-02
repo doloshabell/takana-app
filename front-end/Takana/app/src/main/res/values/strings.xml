@@ -37,7 +37,7 @@
 
     <!--profile-->
     <string name="username_x">Username: %1$s</string>
-    <string name="privasi">🔑\t\tPrivasi</string>
+    <string name="export_data">&#128229;\t\tExport Data Transaction</string>
     <string name="profile">👤\t\tProfil</string>
     <string name="keluar">👋\t\tKeluar</string>
     <string name="username_kosong">Diisi dulu yuk Usernamenya</string>

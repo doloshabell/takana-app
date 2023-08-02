@@ -107,7 +107,7 @@
                     android:drawableEnd="@drawable/round_navigate_next_24"
                     android:fontFamily="@font/manrope_regular"
                     android:padding="@dimen/padding_10"
-                    android:text="@string/privasi"
+                    android:text="@string/export_data"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/textSize_16" />
 

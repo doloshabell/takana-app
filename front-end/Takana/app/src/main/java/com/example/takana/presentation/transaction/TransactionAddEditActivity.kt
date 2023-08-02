@@ -1,13 +1,18 @@
 package com.example.takana.presentation.transaction
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,15 +26,20 @@ import com.example.takana.data.util.SPAllAccount
 import com.example.takana.data.util.SessionManager
 import com.example.takana.data.util.toRupiah
 import com.example.takana.databinding.ActivityTransactionAddEditBinding
+import java.text.DecimalFormat
+import java.util.Calendar
 
 
-class TransactionAddEditActivity : AppCompatActivity() {
+class TransactionAddEditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
+    TimePickerDialog.OnTimeSetListener {
 
     lateinit var binding: ActivityTransactionAddEditBinding
     lateinit var getThisIntent: Intent
     lateinit var token: String
     private var accountList: ArrayList<DataAccount> = ArrayList()
     private val viewModel by viewModels<TransactionViewModel>()
+    var fromAccountId: Int = 0
+    var toAccountId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +54,45 @@ class TransactionAddEditActivity : AppCompatActivity() {
     }
 
     private fun setupContent() {
-        setSpinnerTransactionTypes()
-        setSpinnerTransactionCategoryTypes()
-        setSpinnerFromAccount()
         binding.apply {
+            tvTransactionDate.setOnClickListener {
+                showDatePickerDialog()
+            }
+
+            tvTransactionTime.setOnClickListener {
+                showTimePicker()
+            }
+
             if (getThisIntent.getStringExtra("TODO_TRANSACTION").toString() == "Add") {
+                setSpinnerTransactionTypes()
+                setSpinnerTransactionCategoryTypes()
+                setSpinnerFromAccount()
+                setSpinnerToAccount()
                 tvTitle.text =
                     getString(
                         R.string.add_or_edit_transaction,
                         "Tambah"
                     )
                 btnSaveTransaction.setOnClickListener {
-                    viewModel.addDataTransaction(token, 0, 0, 0, "", 0, 0, "")
+                    val spinnerTransactionToAccPosition =
+                        if (spinnerTransactionType.selectedItemPosition != 3) 0 else toAccountId
+                    Log.d(
+                        "TAG",
+                        "setupContent: $spinnerTransactionToAccPosition & " + spinnerTransactionToAcc.selectedItemPosition
+                    )
+                    val date: String = tvTransactionDate.text.toString()
+                    val time: String = tvTransactionTime.text.toString()
+                    val dateTime = date.plus("T").plus(time).plus(":00Z")
+                    viewModel.addDataTransaction(
+                        token,
+                        spinnerTransactionType.selectedItemPosition,
+                        spinnerTransactionCategory.selectedItemPosition,
+                        etTransactionAmount.text.toString().toInt(),
+                        etTransactionNote.text.toString(),
+                        fromAccountId,
+                        spinnerTransactionToAccPosition,
+                        dateTime
+                    )
                     viewModelAddDataTransaction()
                 }
             } else if (getThisIntent.getStringExtra("TODO_TRANSACTION").toString() == "Edit") {
@@ -74,42 +111,11 @@ class TransactionAddEditActivity : AppCompatActivity() {
                 spinnerTransactionCategory.isEnabled = false
                 spinnerTransactionFromAcc.isEnabled = false
                 spinnerTransactionToAcc.isEnabled = false
-                etTransactionDate.isEnabled = false
-                etTransactionTime.isEnabled = false
+                tvTransactionDate.isEnabled = false
+                tvTransactionTime.isEnabled = false
                 etTransactionNote.isEnabled = false
                 btnSaveTransaction.text = "Hapus Transaksi"
-                btnSaveTransaction.setOnClickListener {
-                    viewModel.deleteDataTransaction(
-                        token,
-                        10,
-                        1,
-                        "",
-                        2,
-                        "",
-                        0,
-                        0,
-                        "",
-                        0,
-                        0
-                    )
-                    viewModelDeleteDataTransaction()
-                }
-
             }
-
-            /*if (spinnerTransactionType.isSelected) {
-                Toast.makeText(
-                    applicationContext,
-                    spinnerTransactionType.selectedItemPosition,
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else
-                Toast.makeText(
-                    applicationContext,
-                    spinnerTransactionType.selectedItemPosition,
-                    Toast.LENGTH_SHORT
-                ).show()*/
-
         }
     }
 
@@ -152,6 +158,10 @@ class TransactionAddEditActivity : AppCompatActivity() {
                         if (value == itemTransactionType[0]) {
                             (view as TextView).setTextColor(Color.GRAY)
                         }
+                        if (position == 3)
+                            spinnerTransactionToAcc.visibility = View.VISIBLE
+                        else
+                            spinnerTransactionToAcc.visibility = View.GONE
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -207,16 +217,14 @@ class TransactionAddEditActivity : AppCompatActivity() {
     }
 
     private fun setSpinnerFromAccount() {
-        val adapterTransactionCategoryType = object : ArrayAdapter<DataAccount>(
+        val itemAccountName: List<String> = accountList.map { it.accountName }
+        val adapterTransactionCategoryType = object : ArrayAdapter<String>(
             applicationContext,
             android.R.layout.simple_spinner_item,
-            accountList
+            itemAccountName
         ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent)
-                (view.findViewById(android.R.id.text1) as TextView).text =
-                    getItem(position)?.accountName
-                return view
+            override fun isEnabled(position: Int): Boolean {
+                return position != 0
             }
 
             override fun getDropDownView(
@@ -226,7 +234,6 @@ class TransactionAddEditActivity : AppCompatActivity() {
             ): View {
                 val view: TextView =
                     super.getDropDownView(position, convertView, parent) as TextView
-                view.text = getItem(position)!!.accountName
                 if (position == 0) {
                     view.setTextColor(Color.DKGRAY)
                 }
@@ -244,7 +251,10 @@ class TransactionAddEditActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
-                        val value = parent!!.getItemAtPosition(position).toString()
+                        /*val value = parent!!.getItemAtPosition(position).toString()
+                        if (value == itemTransactionCategoryType[0]) {
+                            (view as TextView).setTextColor(Color.GRAY)
+                        }*/
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -290,7 +300,11 @@ class TransactionAddEditActivity : AppCompatActivity() {
                         position: Int,
                         id: Long
                     ) {
-                        val value = parent!!.getItemAtPosition(position).toString()
+                        val selectedToAccount: DataAccount? =
+                            adapterTransactionToAccount.getItem(position)
+                        if (selectedToAccount != null) {
+                            toAccountId = selectedToAccount.accountId
+                        }
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -368,18 +382,39 @@ class TransactionAddEditActivity : AppCompatActivity() {
         showToast(data?.message.toString())
         stopLoading()
         binding.apply {
+            setSpinnerTransactionTypes()
+            setSpinnerTransactionCategoryTypes()
             etTransactionAmount.setText(data?.data?.amount?.toLong().toRupiah())
             spinnerTransactionType.setSelection(data?.data?.transactionType!!)
             spinnerTransactionCategory.setSelection(data.data.categoryId)
-            spinnerTransactionFromAcc.setSelection(data.data.fromAccountId)
+            /*spinnerTransactionFromAcc.setSelection(data.data.fromAccountId)
             if (data.data.toAccountId != 0 || data.data.toAccountId != null) {
                 setSpinnerToAccount()
                 spinnerTransactionToAcc.visibility = View.VISIBLE
                 spinnerTransactionToAcc.setSelection(data.data.toAccountId)
-            }
-            etTransactionDate.setText(data.data.transactionDate)
-            etTransactionTime.setText(data.data.transactionDate)
+            }*/
+            tvTransactionDate.text = data.data.transactionDate
+            tvTransactionTime.text = data.data.transactionDate
             etTransactionNote.setText(data.data.note)
+            btnSaveTransaction.setOnClickListener {
+                viewModel.deleteDataTransaction(
+                        token,
+                    data.data.transactionId,
+                    data.data.transactionCode,
+                    data.data.transactionType,
+                    data.data.transactionDate,
+                        data.data.amount,
+                    data.data.fromAccountId,
+                    data.data.toAccountId,
+                    data.data.accountName,
+                    data.data.categoryId,
+                    data.data.categoryName,
+                    data.data.note,
+                    data.data.deletedAt,
+                    data.data.userId
+                    )
+                    viewModelDeleteDataTransaction()
+            }
         }
     }
 
@@ -390,7 +425,7 @@ class TransactionAddEditActivity : AppCompatActivity() {
     }
 
     private fun goToTransaction() {
-        val intent = Intent(applicationContext, MainActivity::class.java);
+        val intent = Intent(applicationContext, MainActivity::class.java)
         intent.putExtra("FROM", "TRANSACTION_ADD_EDIT")
         startActivity(intent)
         finish()
@@ -411,5 +446,47 @@ class TransactionAddEditActivity : AppCompatActivity() {
 
     fun showToast(msg: String) {
         Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar[Calendar.YEAR]
+        val month = calendar[Calendar.MONTH]
+        val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+        val datePickerDialog = DatePickerDialog(
+            this, this,
+            year, month, dayOfMonth
+        )
+        datePickerDialog.show()
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val decimalFormat = DecimalFormat("00")
+        var selectedDate: String =
+            (year.toString() + "-" + decimalFormat.format(month + 1)) + "-" + decimalFormat.format(
+                dayOfMonth
+            )
+        binding.tvTransactionDate.text = selectedDate
+    }
+
+    private fun showTimePicker() {
+        val calendar = Calendar.getInstance()
+        val hour = calendar[Calendar.HOUR_OF_DAY]
+        val minute = calendar[Calendar.MINUTE]
+
+        val timePickerDialog = TimePickerDialog(
+            this,
+            this,
+            hour,
+            minute,
+            true
+        )
+
+        timePickerDialog.show()
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+        binding.tvTransactionTime.text = selectedTime
     }
 }
