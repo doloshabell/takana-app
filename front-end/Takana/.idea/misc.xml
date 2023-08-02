@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/22248628/AndroidStudioProjects/FinalProjectOJT/takana-app/front-end/Takana/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
+        <entry key="..\:/Users/22248628/AndroidStudioProjects/FinalProjectOJT/takana-app/front-end/Takana/app/src/main/res/font-v26/app_font.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/22248628/AndroidStudioProjects/FinalProjectOJT/takana-app/front-end/Takana/app/src/main/res/font/app_font.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/22248628/AndroidStudioProjects/FinalProjectOJT/takana-app/front-end/Takana/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/22248628/AndroidStudioProjects/FinalProjectOJT/takana-app/front-end/Takana/app/src/main/res/layout/activity_splash_screen.xml" value="0.1796875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

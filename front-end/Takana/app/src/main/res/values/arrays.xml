@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gender_types">
+        <item>Jenis Kelamin</item>
+        <item>Perempuan</item>
+        <item>Laki-laki</item>
+    </string-array>
+
+    <string-array name="account_types">
+        <item>Tipe Akun</item>
+        <item>Umum</item>
+        <item>Tunai</item>
+        <item>Akun Terbaru</item>
+        <item>Kartu Kredit</item>
+        <item>Akun Simpanan</item>
+        <item>Bonus</item>
+        <item>Asuransi</item>
+        <item>Investasi</item>
+        <item>Pinjaman</item>
+        <item>Lainnya</item>
+    </string-array>
+
+    <string-array name="transaction_types">
+        <item>Tipe Transaksi</item>
+        <item>Pendapatan</item>
+        <item>Pengeluaran</item>
+        <item>Transfer</item>
+    </string-array>
+
+    <string-array name="transaction_category_types">
+        <item>Kategori Transaksi</item>
+        <item>Makanan dan Minuman</item>
+        <item>Belanja</item>
+        <item>Rumah</item>
+        <item>Transportasi</item>
+        <item>Kendaraan</item>
+        <item>Pinjaman</item>
+        <item>Pendapatan</item>
+        <item>Transfer</item>
+        <item>Investasi</item>
+        <item>Lainnya</item>
+    </string-array>
+</resources>

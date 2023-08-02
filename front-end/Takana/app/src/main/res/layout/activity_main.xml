@@ -7,15 +7,27 @@
     android:background="@color/main_color"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/fl_activity"
+        android:layout_width="@dimen/width_0"
+        android:layout_height="@dimen/height_0"
+        app:layout_constraintBottom_toTopOf="@+id/bnv_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv_menu"
+        android:layout_width="@dimen/width_0"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/manrope_regular"
-        android:text="Hello World!"
-        android:textColor="@color/text_color"
+        android:background="@drawable/border_bottom_navigation_view"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/menu_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
